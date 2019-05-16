@@ -1,4 +1,4 @@
-namespace SQLite.Builder
+namespace PureFreak.SQLite.Builder
 {
     public enum SQLiteReactType
     {

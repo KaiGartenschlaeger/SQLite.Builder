@@ -1,9 +1,9 @@
-using SQLite.Builder.Extensions;
+using PureFreak.SQLite.Builder.Extensions;
 using System;
 using System.Linq;
 using System.Text;
 
-namespace SQLite.Builder
+namespace PureFreak.SQLite.Builder
 {
     public class SqlGenerator
     {

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SQLite.Builder\SQLite.Builder.csproj" />
+    <ProjectReference Include="..\SQLite.Builder\PureFreak.SQLite.Builder.csproj" />
   </ItemGroup>
 
 </Project>

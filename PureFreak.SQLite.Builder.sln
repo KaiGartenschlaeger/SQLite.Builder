@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLite.Builder", "SQLite.Builder\SQLite.Builder.csproj", "{8A6C06FD-7A0E-4243-95E2-DCCCC19F5521}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PureFreak.SQLite.Builder", "SQLite.Builder\PureFreak.SQLite.Builder.csproj", "{8A6C06FD-7A0E-4243-95E2-DCCCC19F5521}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2D85CED-55D5-40FD-9A5B-35ED5BBF1CAA}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteBuilder.Tests", "SQLiteBuilder.Tests\SQLiteBuilder.Tests.csproj", "{39F8EECA-4BCA-4D7E-8B7A-A344C325DC17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PureFreak.SQLite.Builder.Tests", "SQLiteBuilder.Tests\PureFreak.SQLite.Builder.Tests.csproj", "{39F8EECA-4BCA-4D7E-8B7A-A344C325DC17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

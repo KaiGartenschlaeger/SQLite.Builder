@@ -1,6 +1,6 @@
 using System;
 
-namespace SQLite.Builder
+namespace PureFreak.SQLite.Builder
 {
     public class UniqueIndexBuilder
     {

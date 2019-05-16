@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SQLite.Builder
+namespace PureFreak.SQLite.Builder
 {
     public class TableBuilder
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SQLite.Builder
+namespace PureFreak.SQLite.Builder
 {
     public class Table
     {

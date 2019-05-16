@@ -1,6 +1,6 @@
 using System;
 
-namespace SQLite.Builder
+namespace PureFreak.SQLite.Builder
 {
     [Flags]
     public enum ColumnFlags

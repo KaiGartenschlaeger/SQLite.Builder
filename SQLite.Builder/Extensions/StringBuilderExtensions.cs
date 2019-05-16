@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace SQLite.Builder.Extensions
+namespace PureFreak.SQLite.Builder.Extensions
 {
     internal static class StringBuilderExtensions
     {

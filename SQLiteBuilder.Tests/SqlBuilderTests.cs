@@ -1,4 +1,4 @@
-using SQLite.Builder;
+using PureFreak.SQLite.Builder;
 using System;
 using Xunit;
 
@@ -9,7 +9,7 @@ namespace SQLiteBuilder.Tests
         [Fact]
         public void ShouldCreateValidSqlForSimpleTable()
         {
-            var table = new TableBuilder("Test")
+            var table = TableBuilder.Create("Test")
                 .WithColumn("Id", SQLiteDbType.Integer, c => c.PrimaryKey().AutoIncrement())
                 .WithColumn("FirstName", SQLiteDbType.Text)
                 .WithColumn("LastName", SQLiteDbType.Text)
@@ -33,7 +33,7 @@ namespace SQLiteBuilder.Tests
         [Fact]
         public void ShouldCreateValidSqlForSimpleTableWithPrimaryKey()
         {
-            var table = new TableBuilder("Test")
+            var table = TableBuilder.Create("Test")
                 .WithColumn("Id", SQLiteDbType.Integer)
                 .WithColumn("ZipCode", SQLiteDbType.Text)
                 .WithColumn("Town", SQLiteDbType.Text)
