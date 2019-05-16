@@ -20,6 +20,11 @@ namespace SQLite.Builder
             _table.Columns = new List<Column>();
         }
 
+        public static TableBuilder Create(string tableName)
+        {
+            return new TableBuilder(tableName);
+        }
+
         public TableBuilder WithExistsCheck()
         {
             _table.ExistsCheck = true;

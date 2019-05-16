@@ -7,6 +7,9 @@
     <Company />
     <Product />
     <Description>Ermöglicht das erzeugen von Objekte mit Hilfe des Builder-Patterns.</Description>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
