@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Kai Gartenschläger</Authors>
+    <Company />
+    <Product />
+    <Description>Ermöglicht das erzeugen von Objekte mit Hilfe des Builder-Patterns.</Description>
   </PropertyGroup>
 
   <ItemGroup>
