@@ -114,7 +114,6 @@ namespace PureFreak.SQLite.Builder
             sql.Append(" (");
             sql.AppendLine();
         }
-
         private void AppendColumns(StringBuilder sql, Table table)
         {
             foreach (var column in table.Columns)
@@ -170,7 +169,6 @@ namespace PureFreak.SQLite.Builder
                 sql.AppendLine();
             }
         }
-
         private void AppendUniqueIndex(StringBuilder sql, Table table)
         {
             if (table.UniqueIndex != null)
@@ -199,7 +197,6 @@ namespace PureFreak.SQLite.Builder
                 sql.AppendLine();
             }
         }
-
         private void AppendPrimaryKey(StringBuilder sql, Table table)
         {
             if (table.PrimaryKey != null)
@@ -241,7 +238,6 @@ namespace PureFreak.SQLite.Builder
                 sql.AppendLine();
             }
         }
-
         private void AppendTableFooter(StringBuilder sql, Table table)
         {
             sql.TrimEnd('\r', '\n', ',');
@@ -256,6 +252,63 @@ namespace PureFreak.SQLite.Builder
             }
 
             sql.Append(";");
+        }
+
+        /*
+
+        CREATE UNIQUE INDEX UQ_Firstname_Lastname ON [Test 1] (
+            Firstname,
+            Lastname
+        );
+
+        */
+
+        public string Generate(Index index)
+        {
+            if (index == null)
+                throw new ArgumentNullException(nameof(index));
+
+            var sql = new StringBuilder();
+
+            sql.Append("CREATE ");
+
+            if (index.IsUnique)
+                sql.Append("UNIQUE ");
+
+            sql.Append("INDEX ");
+
+            if (index.ExistsCheck)
+                sql.Append("IF NOT EXISTS ");
+
+            sql.Append("[");
+            sql.Append(index.Name);
+            sql.Append("]");
+
+            sql.Append(" ON ");
+
+            sql.Append("[");
+            sql.Append(index.Table);
+            sql.Append("]");
+
+            sql.Append(" (");
+            sql.AppendLine();
+
+            for (int i = 0; i < index.Columns.Count; i++)
+            {
+                var column = index.Columns[i];
+
+                sql.Append(_indent);
+                sql.Append(column);
+
+                if (i + 1 < index.Columns.Count)
+                    sql.Append(",");
+
+                sql.AppendLine();
+            }
+
+            sql.Append(");");
+
+            return sql.ToString();
         }
 
         public int IndentSize

@@ -2,7 +2,7 @@ using PureFreak.SQLite.Builder;
 using System;
 using Xunit;
 
-namespace SQLiteBuilder.Tests
+namespace PureFreak.SQLiteBuilder.Tests
 {
     public class SqlBuilderTests
     {
