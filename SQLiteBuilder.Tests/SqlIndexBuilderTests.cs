@@ -28,6 +28,29 @@ namespace PureFreak.SQLite.Builder.Tests
         }
 
         [Fact]
+        public void ShouldGenerateValidSqlForIndexWithExistsCheck()
+        {
+            var index = IndexBuilder.Create("IX_Category_Name")
+                .WithExistsCheck()
+                .Unique()
+                .WithTable("Category")
+                .WithColumn("Name")
+                .Build();
+
+            var translator = new SqlGenerator();
+            translator.IndentSize = 2;
+
+            var actual = translator.Generate(index);
+
+            var expected =
+                "CREATE UNIQUE INDEX IF NOT EXISTS [IX_Category_Name] ON [Category] (" + Environment.NewLine +
+                "  Name" + Environment.NewLine +
+                ");";
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void ShouldGenerateValidSqlForMultipleColumnsIndex()
         {
             var index = IndexBuilder.Create("UQ_Account_Name")
