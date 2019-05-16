@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PureFreak.SQLite.Builder
@@ -17,7 +16,6 @@ namespace PureFreak.SQLite.Builder
 
             _table = new Table();
             _table.Name = tableName;
-            _table.Columns = new List<Column>();
         }
 
         public static TableBuilder Create(string tableName)
@@ -76,16 +74,21 @@ namespace PureFreak.SQLite.Builder
             return builder.BuildColumn();
         }
 
-        public TableBuilder WithUniqueIndex(Action<UniqueIndexBuilder> config)
+        public TableBuilder WithUniqueIndex(Action<IndexBuilder> config)
         {
             if (config == null)
                 throw new ArgumentNullException(nameof(config));
 
-            var builder = new UniqueIndexBuilder(this, _table);
+            var builder = new IndexBuilder($"uq_{_table.Name}_{_table.UniqueIndizees.Count}");
+            builder.Unique();
 
             config(builder);
 
-            return builder.Build();
+            var index = builder.Build();
+
+            _table.UniqueIndizees.Add(index);
+
+            return this;
         }
 
         public TableBuilder WithPrimaryKey(Action<PrimaryKeyBuilder> config)

@@ -31,6 +31,41 @@ namespace PureFreak.SQLiteBuilder.Tests
         }
 
         [Fact]
+        public void ShouldCreateValidSqlForTableWithUniqueIndex()
+        {
+            var table = TableBuilder.Create("Test")
+                .WithColumn("Id", SQLiteDbType.Integer, c => c.PrimaryKey().AutoIncrement())
+                .WithColumn("FirstName", SQLiteDbType.Text)
+                .WithColumn("LastName", SQLiteDbType.Text)
+                .WithColumn("Username", SQLiteDbType.Text)
+                .WithUniqueIndex(i => i.WithColumn("Firstname").WithColumn("Lastname"))
+                .WithUniqueIndex(i => i.WithColumn("Username"))
+                .Build();
+
+            var genertator = new SqlGenerator();
+            genertator.IndentSize = 2;
+
+            var actual = genertator.Generate(table);
+
+            var expected =
+                "CREATE TABLE [Test] (" + Environment.NewLine +
+                "  Id INTEGER PRIMARY KEY AUTOINCREMENT," + Environment.NewLine +
+                "  FirstName TEXT," + Environment.NewLine +
+                "  LastName TEXT," + Environment.NewLine +
+                "  Username TEXT," + Environment.NewLine +
+                "  UNIQUE (" + Environment.NewLine +
+                "    Firstname," + Environment.NewLine +
+                "    Lastname" + Environment.NewLine +
+                "  )," + Environment.NewLine +
+                "  UNIQUE (" + Environment.NewLine +
+                "    Username" + Environment.NewLine +
+                "  )" + Environment.NewLine +
+                ");";
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void ShouldCreateValidSqlForSimpleTableWithPrimaryKey()
         {
             var table = TableBuilder.Create("Test")

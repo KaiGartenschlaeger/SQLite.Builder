@@ -93,7 +93,7 @@ namespace PureFreak.SQLite.Builder
             var buffer = new StringBuilder();
             AppendTableHeader(buffer, table);
             AppendColumns(buffer, table);
-            AppendUniqueIndex(buffer, table);
+            AppendUniqueIndizees(buffer, table);
             AppendPrimaryKey(buffer, table);
             AppendTableFooter(buffer, table);
 
@@ -169,23 +169,25 @@ namespace PureFreak.SQLite.Builder
                 sql.AppendLine();
             }
         }
-        private void AppendUniqueIndex(StringBuilder sql, Table table)
+        private void AppendUniqueIndizees(StringBuilder sql, Table table)
         {
-            if (table.UniqueIndex != null)
+            for (int i = 0; i < table.UniqueIndizees.Count; i++)
             {
+                var index = table.UniqueIndizees[i];
+
                 sql.Append(_indent);
                 sql.Append("UNIQUE (");
                 sql.AppendLine();
 
-                for (int i = 0; i < table.UniqueIndex.Columns.Count; i++)
+                for (int c = 0; c < index.Columns.Count; c++)
                 {
-                    var column = table.UniqueIndex.Columns[i];
+                    var column = index.Columns[c];
 
                     sql.Append(_indent);
                     sql.Append(_indent);
                     sql.Append(column);
 
-                    if (i + 1 < table.UniqueIndex.Columns.Count)
+                    if (c + 1 < index.Columns.Count)
                         sql.Append(",");
 
                     sql.AppendLine();
@@ -253,15 +255,6 @@ namespace PureFreak.SQLite.Builder
 
             sql.Append(";");
         }
-
-        /*
-
-        CREATE UNIQUE INDEX UQ_Firstname_Lastname ON [Test 1] (
-            Firstname,
-            Lastname
-        );
-
-        */
 
         public string Generate(Index index)
         {
