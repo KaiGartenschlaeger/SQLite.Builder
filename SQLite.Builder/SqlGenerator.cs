@@ -87,6 +87,34 @@ namespace PureFreak.SQLite.Builder
                     throw new NotImplementedException();
             }
         }
+        private string GetTriggerEventString(TriggerEventType type)
+        {
+            switch (type)
+            {
+                case TriggerEventType.Before:
+                    return "BEFORE";
+                case TriggerEventType.After:
+                    return "AFTER";
+
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+        private string GetTriggerActionString(TriggerActionType type)
+        {
+            switch (type)
+            {
+                case TriggerActionType.Update:
+                    return "UPDATE";
+                case TriggerActionType.Insert:
+                    return "INSERT";
+                case TriggerActionType.Delete:
+                    return "DELETE";
+
+                default:
+                    throw new NotImplementedException();
+            }
+        }
 
         public string Generate(Table table)
         {
@@ -300,6 +328,48 @@ namespace PureFreak.SQLite.Builder
             }
 
             sql.Append(");");
+
+            return sql.ToString();
+        }
+
+        public string Generate(Trigger trigger)
+        {
+            if (trigger == null)
+                throw new ArgumentNullException(nameof(trigger));
+
+            var sql = new StringBuilder();
+
+            sql.Append("CREATE TRIGGER ");
+            sql.Append($"\"{trigger.Name}\" ");
+
+            sql.Append($"{GetTriggerEventString(trigger.EventType)} ");
+            sql.Append($"{GetTriggerActionString(trigger.ActionType)} ");
+
+            sql.Append($"ON \"{trigger.TableName}\" ");
+
+            sql.AppendLine();
+
+            if (!string.IsNullOrEmpty(trigger.Condition))
+            {
+                sql.Append("WHEN ");
+                sql.Append(trigger.Condition);
+                sql.Append(" ");
+                sql.AppendLine();
+            }
+
+            sql.Append("BEGIN ");
+            sql.AppendLine();
+
+            foreach (var line in trigger.Script.ToString()
+                .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
+            {
+                sql.Append(_indent);
+                sql.Append(line.Trim());
+                sql.Append(";");
+                sql.AppendLine();
+            }
+
+            sql.Append("END;");
 
             return sql.ToString();
         }
