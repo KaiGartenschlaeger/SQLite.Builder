@@ -52,7 +52,14 @@ namespace PureFreak.SQLite.Builder
             if (condition == null)
                 throw new ArgumentNullException(nameof(condition));
 
-            _trigger.Condition = condition;
+            var fixedCondition = condition.Trim();
+            if (fixedCondition.StartsWith("WHEN", StringComparison.OrdinalIgnoreCase))
+            {
+                fixedCondition = fixedCondition.Substring(4);
+                fixedCondition = fixedCondition.Trim();
+            }
+
+            _trigger.Condition = fixedCondition;
 
             return this;
         }
@@ -62,7 +69,9 @@ namespace PureFreak.SQLite.Builder
             if (script == null)
                 throw new ArgumentNullException(nameof(script));
 
-            _trigger.Script.AppendLine(script.Trim());
+            var fixedScript = script.Trim();
+
+            _trigger.Script.AppendLine(fixedScript);
 
             return this;
         }

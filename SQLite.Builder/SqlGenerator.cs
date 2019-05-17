@@ -340,6 +340,10 @@ namespace PureFreak.SQLite.Builder
             var sql = new StringBuilder();
 
             sql.Append("CREATE TRIGGER ");
+
+            if (trigger.ExistsCheck)
+                sql.Append("IF NOT EXISTS ");
+
             sql.Append($"\"{trigger.Name}\" ");
 
             sql.Append($"{GetTriggerEventString(trigger.EventType)} ");

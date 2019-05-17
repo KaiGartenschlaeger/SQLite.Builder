@@ -7,7 +7,7 @@ namespace PureFreak.SQLite.Builder.Tests
     {
 
         [Fact]
-        public void ShouldGenerateValidTrigger()
+        public void ShouldGenerateValidTriggerEntity()
         {
             var trigger = TriggerBuilder.Create("trigger_history")
                 .WithExistsCheck()
@@ -28,7 +28,32 @@ namespace PureFreak.SQLite.Builder.Tests
         }
 
         [Fact]
-        public void ShouldGenerateValidSqlForTrigger()
+        public void ShouldGenerateValidSqlWithSingleScriptLine()
+        {
+            var trigger = TriggerBuilder.Create("trigger_account")
+               .Before(TriggerActionType.Update)
+               .OnTable("Account")
+               .WithCondition("old.Username <> new.Username")
+               .WithScript("UPDATE Account SET LastUpdateDateUtc = DATETIME('now') WHERE Id = old.Id")
+               .Build();
+
+            var generator = new SqlGenerator();
+            generator.IndentSize = 2;
+
+            var actual = generator.Generate(trigger);
+
+            var expected =
+                "CREATE TRIGGER \"trigger_account\" BEFORE UPDATE ON \"Account\" " + Environment.NewLine +
+                "WHEN old.Username <> new.Username " + Environment.NewLine +
+                "BEGIN " + Environment.NewLine +
+                "  UPDATE Account SET LastUpdateDateUtc = DATETIME('now') WHERE Id = old.Id;" + Environment.NewLine +
+                "END;";
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ShouldGenerateValidSqlWithMultipleScriptLines()
         {
             var trigger = TriggerBuilder.Create("trigger_account")
                .WithExistsCheck()
@@ -45,11 +70,36 @@ namespace PureFreak.SQLite.Builder.Tests
             var actual = generator.Generate(trigger);
 
             var expected =
-                "CREATE TRIGGER \"trigger_account\" BEFORE UPDATE ON \"Account\" " + Environment.NewLine +
+                "CREATE TRIGGER IF NOT EXISTS \"trigger_account\" BEFORE UPDATE ON \"Account\" " + Environment.NewLine +
                 "WHEN old.Username <> new.Username " + Environment.NewLine +
                 "BEGIN " + Environment.NewLine +
                 "  UPDATE Account SET LastUpdateDateUtc = DATETIME('now') WHERE Id = old.Id;" + Environment.NewLine +
                 "  INSERT INTO AccountHistor (AccountId) VALUES (old.Id);" + Environment.NewLine +
+                "END;";
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ShouldRemoveWhenInScript()
+        {
+            var trigger = TriggerBuilder.Create("test")
+               .After(TriggerActionType.Update)
+               .OnTable("Test")
+               .WithCondition("WHEN old.Version <> new.Version")
+               .WithScript("UPDATE Test SET version = new.Version")
+               .Build();
+
+            var generator = new SqlGenerator();
+            generator.IndentSize = 2;
+
+            var actual = generator.Generate(trigger);
+
+            var expected =
+                "CREATE TRIGGER \"test\" AFTER UPDATE ON \"Test\" " + Environment.NewLine +
+                "WHEN old.Version <> new.Version " + Environment.NewLine +
+                "BEGIN " + Environment.NewLine +
+                "  UPDATE Test SET version = new.Version;" + Environment.NewLine +
                 "END;";
 
             Assert.Equal(expected, actual);
