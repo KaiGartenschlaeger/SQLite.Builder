@@ -55,6 +55,17 @@ namespace PureFreak.SQLite.Builder
             return this;
         }
 
+        public IndexBuilder WithColumns(params string[] columns)
+        {
+            if (columns == null)
+                throw new ArgumentNullException(nameof(columns));
+
+            foreach (var column in columns)
+                WithColumn(column);
+
+            return this;
+        }
+
         public Index Build()
         {
             return _index;

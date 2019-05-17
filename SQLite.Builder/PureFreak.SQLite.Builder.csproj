@@ -7,13 +7,12 @@
     <Company />
     <Product>PureFreak.SQLite.Builder</Product>
     <Description>Ermöglicht das erzeugen von Objekte mit Hilfe des Builder-Patterns.</Description>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
     <PackageId>PureFreak.SQLite.Builder</PackageId>
     <PackageTags>sqlite, builder</PackageTags>
-    <PackageReleaseNotes>- TableBuilder kann nun mehrere Unique Indizees hinzufügen
-- IndexBuilder hinzugefügt</PackageReleaseNotes>
+    <PackageReleaseNotes>- IndexBuilder.WithColumns ergänzt</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
