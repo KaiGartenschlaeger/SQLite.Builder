@@ -11,8 +11,7 @@ namespace PureFreak.SQLite.Builder.Tests
         {
             var trigger = TriggerBuilder.Create("trigger_history")
                 .WithExistsCheck()
-                .Before()
-                .Update()
+                .Before(TriggerActionType.Update)
                 .OnTable("Account")
                 .WithCondition("old.ContentHash <> new.ContentHash")
                 .WithScript("UPDATE PageAttachments SET LastUpdateDateUtc = DATETIME('now'), Version = Version + 1 WHERE Id = old.Id")
@@ -24,7 +23,7 @@ namespace PureFreak.SQLite.Builder.Tests
             Assert.Equal(TriggerActionType.Update, trigger.ActionType);
             Assert.Equal("Account", trigger.TableName);
             Assert.Equal("old.ContentHash <> new.ContentHash", trigger.Condition);
-            Assert.Equal("UPDATE PageAttachments SET LastUpdateDateUtc = DATETIME('now'), Version = Version + 1 WHERE Id = old.Id;" + Environment.NewLine,
+            Assert.Equal("UPDATE PageAttachments SET LastUpdateDateUtc = DATETIME('now'), Version = Version + 1 WHERE Id = old.Id" + Environment.NewLine,
                 trigger.Script.ToString());
         }
 
@@ -33,8 +32,7 @@ namespace PureFreak.SQLite.Builder.Tests
         {
             var trigger = TriggerBuilder.Create("trigger_account")
                .WithExistsCheck()
-               .Before()
-               .Update()
+               .Before(TriggerActionType.Update)
                .OnTable("Account")
                .WithCondition("old.Username <> new.Username")
                .WithScript("UPDATE Account SET LastUpdateDateUtc = DATETIME('now') WHERE Id = old.Id")

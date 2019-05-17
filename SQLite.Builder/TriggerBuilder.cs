@@ -24,35 +24,18 @@ namespace PureFreak.SQLite.Builder
             return this;
         }
 
-        public TriggerBuilder After()
+        public TriggerBuilder After(TriggerActionType type)
         {
             _trigger.EventType = TriggerEventType.After;
+            _trigger.ActionType = type;
+
             return this;
         }
 
-        public TriggerBuilder Before()
+        public TriggerBuilder Before(TriggerActionType type)
         {
             _trigger.EventType = TriggerEventType.Before;
-
-            return this;
-        }
-
-        public TriggerBuilder Update()
-        {
-            _trigger.ActionType = TriggerActionType.Update;
-
-            return this;
-        }
-
-        public TriggerBuilder OnInsert()
-        {
-            _trigger.ActionType = TriggerActionType.Insert;
-            return this;
-        }
-
-        public TriggerBuilder OnDelete()
-        {
-            _trigger.ActionType = TriggerActionType.Delete;
+            _trigger.ActionType = type;
 
             return this;
         }
