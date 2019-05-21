@@ -5,14 +5,14 @@ namespace PureFreak.SQLite.Builder
 {
     public class IndexBuilder
     {
-        private readonly Index _index;
+        private readonly IndexEntity _index;
 
         public IndexBuilder(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Cannot be null or empty.", nameof(name));
 
-            _index = new Index();
+            _index = new IndexEntity();
             _index.Name = name;
         }
 
@@ -66,7 +66,7 @@ namespace PureFreak.SQLite.Builder
             return this;
         }
 
-        public Index Build()
+        public IndexEntity Build()
         {
             return _index;
         }

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace PureFreak.SQLite.Builder
 {
-    public class Index
+    public class IndexEntity
     {
-        public Index()
+        public IndexEntity()
         {
             Columns = new List<string>();
         }

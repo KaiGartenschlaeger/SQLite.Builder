@@ -87,13 +87,13 @@ namespace PureFreak.SQLite.Builder
                     throw new NotImplementedException();
             }
         }
-        private string GetTriggerEventString(TriggerEventType type)
+        private string GetTriggerEventString(SQLiteTriggerEventType type)
         {
             switch (type)
             {
-                case TriggerEventType.Before:
+                case SQLiteTriggerEventType.Before:
                     return "BEFORE";
-                case TriggerEventType.After:
+                case SQLiteTriggerEventType.After:
                     return "AFTER";
 
                 default:
@@ -116,7 +116,7 @@ namespace PureFreak.SQLite.Builder
             }
         }
 
-        public string Generate(Table table)
+        public string Generate(TableEntity table)
         {
             var buffer = new StringBuilder();
             AppendTableHeader(buffer, table);
@@ -128,7 +128,7 @@ namespace PureFreak.SQLite.Builder
             return buffer.ToString();
         }
 
-        private void AppendTableHeader(StringBuilder sql, Table table)
+        private void AppendTableHeader(StringBuilder sql, TableEntity table)
         {
             sql.Append("CREATE TABLE ");
 
@@ -142,7 +142,7 @@ namespace PureFreak.SQLite.Builder
             sql.Append(" (");
             sql.AppendLine();
         }
-        private void AppendColumns(StringBuilder sql, Table table)
+        private void AppendColumns(StringBuilder sql, TableEntity table)
         {
             foreach (var column in table.Columns)
             {
@@ -197,7 +197,7 @@ namespace PureFreak.SQLite.Builder
                 sql.AppendLine();
             }
         }
-        private void AppendUniqueIndizees(StringBuilder sql, Table table)
+        private void AppendUniqueIndizees(StringBuilder sql, TableEntity table)
         {
             for (int i = 0; i < table.UniqueIndizees.Count; i++)
             {
@@ -227,7 +227,7 @@ namespace PureFreak.SQLite.Builder
                 sql.AppendLine();
             }
         }
-        private void AppendPrimaryKey(StringBuilder sql, Table table)
+        private void AppendPrimaryKey(StringBuilder sql, TableEntity table)
         {
             if (table.PrimaryKey != null)
             {
@@ -268,7 +268,7 @@ namespace PureFreak.SQLite.Builder
                 sql.AppendLine();
             }
         }
-        private void AppendTableFooter(StringBuilder sql, Table table)
+        private void AppendTableFooter(StringBuilder sql, TableEntity table)
         {
             sql.TrimEnd('\r', '\n', ',');
 
@@ -284,7 +284,7 @@ namespace PureFreak.SQLite.Builder
             sql.Append(";");
         }
 
-        public string Generate(Index index)
+        public string Generate(IndexEntity index)
         {
             if (index == null)
                 throw new ArgumentNullException(nameof(index));
@@ -332,7 +332,7 @@ namespace PureFreak.SQLite.Builder
             return sql.ToString();
         }
 
-        public string Generate(Trigger trigger)
+        public string Generate(TriggerEntity trigger)
         {
             if (trigger == null)
                 throw new ArgumentNullException(nameof(trigger));

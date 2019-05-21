@@ -4,11 +4,11 @@ namespace PureFreak.SQLite.Builder
 {
     public class TriggerBuilder
     {
-        private readonly Trigger _trigger;
+        private readonly TriggerEntity _trigger;
 
         public TriggerBuilder(string name)
         {
-            _trigger = new Trigger();
+            _trigger = new TriggerEntity();
             _trigger.Name = name;
         }
 
@@ -26,7 +26,7 @@ namespace PureFreak.SQLite.Builder
 
         public TriggerBuilder After(TriggerActionType type)
         {
-            _trigger.EventType = TriggerEventType.After;
+            _trigger.EventType = SQLiteTriggerEventType.After;
             _trigger.ActionType = type;
 
             return this;
@@ -34,7 +34,7 @@ namespace PureFreak.SQLite.Builder
 
         public TriggerBuilder Before(TriggerActionType type)
         {
-            _trigger.EventType = TriggerEventType.Before;
+            _trigger.EventType = SQLiteTriggerEventType.Before;
             _trigger.ActionType = type;
 
             return this;
@@ -76,7 +76,7 @@ namespace PureFreak.SQLite.Builder
             return this;
         }
 
-        public Trigger Build()
+        public TriggerEntity Build()
         {
             return _trigger;
         }

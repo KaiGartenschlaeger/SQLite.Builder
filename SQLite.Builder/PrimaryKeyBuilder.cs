@@ -5,15 +5,15 @@ namespace PureFreak.SQLite.Builder
     public class PrimaryKeyBuilder
     {
         private readonly TableBuilder _tableBuilder;
-        private readonly Table _table;
+        private readonly TableEntity _table;
 
-        public PrimaryKeyBuilder(TableBuilder tableBuilder, Table table)
+        public PrimaryKeyBuilder(TableBuilder tableBuilder, TableEntity table)
         {
             _tableBuilder = tableBuilder;
             _table = table;
 
             if (_table.PrimaryKey == null)
-                _table.PrimaryKey = new PrimaryKey();
+                _table.PrimaryKey = new PrimaryKeyEntity();
         }
 
         public PrimaryKeyBuilder WithColumn(string column)

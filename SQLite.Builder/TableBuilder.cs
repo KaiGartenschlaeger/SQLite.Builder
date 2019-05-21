@@ -5,7 +5,7 @@ namespace PureFreak.SQLite.Builder
 {
     public class TableBuilder
     {
-        private readonly Table _table;
+        private readonly TableEntity _table;
 
         public TableBuilder(string tableName)
         {
@@ -14,7 +14,7 @@ namespace PureFreak.SQLite.Builder
             if (string.IsNullOrEmpty(tableName))
                 throw new ArgumentException($"{nameof(tableName)} cannot be empty.");
 
-            _table = new Table();
+            _table = new TableEntity();
             _table.Name = tableName;
         }
 
@@ -45,7 +45,7 @@ namespace PureFreak.SQLite.Builder
             if (_table.Columns.Any(c => c.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
                 throw new InvalidOperationException($"A column with name \"{columnName}\" has already been added.");
 
-            var column = new Column();
+            var column = new ColumnEntity();
             column.Name = columnName;
             column.Type = type;
 
@@ -103,7 +103,7 @@ namespace PureFreak.SQLite.Builder
             return builder.Build();
         }
 
-        public Table Build()
+        public TableEntity Build()
         {
             if (_table.Columns.Count == 0)
                 throw new InvalidOperationException("There must be at least one column.");

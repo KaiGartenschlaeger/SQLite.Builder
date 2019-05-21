@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace PureFreak.SQLite.Builder
 {
-    public class PrimaryKey
+    public class PrimaryKeyEntity
     {
-        public PrimaryKey()
+        public PrimaryKeyEntity()
         {
             Columns = new List<PrimaryKeyColumn>();
             ConflictType = null;

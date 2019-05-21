@@ -19,7 +19,7 @@ namespace PureFreak.SQLite.Builder.Tests
 
             Assert.Equal("trigger_history", trigger.Name);
             Assert.True(trigger.ExistsCheck);
-            Assert.Equal(TriggerEventType.Before, trigger.EventType);
+            Assert.Equal(SQLiteTriggerEventType.Before, trigger.EventType);
             Assert.Equal(TriggerActionType.Update, trigger.ActionType);
             Assert.Equal("Account", trigger.TableName);
             Assert.Equal("old.ContentHash <> new.ContentHash", trigger.Condition);

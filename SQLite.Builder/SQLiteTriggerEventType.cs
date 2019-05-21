@@ -1,6 +1,6 @@
 namespace PureFreak.SQLite.Builder
 {
-    public enum TriggerEventType
+    public enum SQLiteTriggerEventType
     {
         Before,
         After

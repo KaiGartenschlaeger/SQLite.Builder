@@ -5,9 +5,9 @@ namespace PureFreak.SQLite.Builder
     public class ColumnBuilder
     {
         private readonly TableBuilder _tableBuilder;
-        private readonly Column _column;
+        private readonly ColumnEntity _column;
 
-        public ColumnBuilder(TableBuilder tableBuilder, Column column)
+        public ColumnBuilder(TableBuilder tableBuilder, ColumnEntity column)
         {
             if (tableBuilder == null)
                 throw new ArgumentNullException(nameof(tableBuilder));

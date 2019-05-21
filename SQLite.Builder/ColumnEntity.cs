@@ -1,6 +1,6 @@
 namespace PureFreak.SQLite.Builder
 {
-    public class Column
+    public class ColumnEntity
     {
         public string Name { get; set; }
         public SQLiteDbType Type { get; set; }
